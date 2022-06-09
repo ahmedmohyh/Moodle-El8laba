@@ -29,6 +29,11 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+
+
+    @ManyToMany(targetEntity = Course.class)
+    private List<Course> courses;
     //</editor-fold>
 
 
@@ -38,6 +43,7 @@ public class User {
     public int getUserId() {
         return userId;
     }
+
 
     public void setUserId(int userId) {
         this.userId = userId;
@@ -91,8 +97,15 @@ public class User {
         this.userType = userType;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
 
-    public User(int userId, String firstName, String lastName, String userName, String password, String mail, UserType userType) {
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public User(int userId, String firstName, String lastName, String userName, String password, String mail, UserType userType, List<Course> courses) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -100,6 +113,7 @@ public class User {
         this.password = password;
         this.mail = mail;
         this.userType = userType;
+        this.courses = courses;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.startup.MoodleEl8laba.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,6 +11,10 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int courseId;
+
+
+    @ManyToMany(targetEntity = User.class)
+    private List<User> participant;
 
     @Column(name = "freeSeets", nullable = false,unique = false)
     private int freeSeets;
@@ -23,8 +28,11 @@ public class Course {
     @Column(name = "password", nullable = true,unique = false)
     private String password;
 
+
     @OneToOne
     private User creator;
+
+
 
 
 //</editor-fold>
@@ -82,6 +90,16 @@ public class Course {
     }
 
 
+
+    public List<User> getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(List<User> participant) {
+        this.participant = participant;
+    }
+
+
 //</editor-fold>
 
 
@@ -102,15 +120,15 @@ public class Course {
     //</editor-fold>
 
     //<editor-fold desc="Constructor">
-    public Course(int courseId, int freeSeets, String courseName, boolean hasPassword, String password, User creator) {
+    public Course(int courseId, List<User> participant, int freeSeets, String courseName, boolean hasPassword, String password, User creator) {
         this.courseId = courseId;
+        this.participant = participant;
         this.freeSeets = freeSeets;
         this.courseName = courseName;
         this.hasPassword = hasPassword;
         this.password = password;
         this.creator = creator;
     }
-
 
     public Course() {
 
