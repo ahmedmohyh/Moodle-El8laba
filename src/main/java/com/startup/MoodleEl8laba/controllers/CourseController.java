@@ -1,8 +1,11 @@
 package com.startup.MoodleEl8laba.controllers;
 
 import com.startup.MoodleEl8laba.models.Course;
+import com.startup.MoodleEl8laba.models.User;
 import com.startup.MoodleEl8laba.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,17 +21,34 @@ public class CourseController {
     }
 
     @GetMapping("/{userid}")
-    public List<com.startup.MoodleEl8laba.models.Course> getAllCourses (@PathVariable int userid) {
+    public ResponseEntity<List<com.startup.MoodleEl8laba.models.Course>> getAllCourses (@PathVariable int userid) {
 
         System.out.println(" the user id is" + userid);
         //System.out.println("from the userNameExist the userName is " + userName);
-        return  this.courseService.getAllUserCourses(userid);
+        return new ResponseEntity<>(this.courseService.getAllUserCourses(userid), HttpStatus.OK);
+
     }
 
-    @PostMapping("/{courseId}/{userId}")
-    public Course  addUserToCourse(@PathVariable int courseId, @PathVariable int userId) {
+    @PutMapping("/{courseId}/{userId}")
+    public ResponseEntity<?>  addUserToCourse(@PathVariable int courseId, @PathVariable int userId) {
         System.out.println("The course Id is " + courseId + " the user id is" + userId  );
-        return  this.courseService.addUserToCourse(courseId,userId);
+        try {
+            return new ResponseEntity<>(this.courseService.addUserToCourse(courseId,userId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @PostMapping("/add/{creatorId}")
+    public ResponseEntity<?> addCourse(@RequestBody Course course , @PathVariable int creatorId) {
+
+        System.out.println("The course Id is " + creatorId + " the user id is" + course.toString()  );
+        try {
+            return new ResponseEntity<>(this.courseService.addCourse(course,creatorId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>( e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
+        //return  this.courseService.addUserToCourse(courseId,userId);
     }
 
 }

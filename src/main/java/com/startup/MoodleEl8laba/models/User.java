@@ -135,7 +135,7 @@ public class User {
     //</editor-fold>
 
     //<editor-fold desc="ENUM">
-    private enum UserType{
+    public enum UserType{
         TEACHER,
         STUDENT
     }
