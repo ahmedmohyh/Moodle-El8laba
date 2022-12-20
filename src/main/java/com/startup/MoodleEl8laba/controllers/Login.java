@@ -21,8 +21,6 @@ public class Login {
         this.userService = service;
     }
 
-
-
     @PostMapping("")
     public ResponseEntity<?> tryLogin (@RequestBody User user ){
 
@@ -31,7 +29,7 @@ public class Login {
             return new ResponseEntity<>(loginUser,HttpStatus.OK);
 
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
 

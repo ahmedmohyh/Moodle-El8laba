@@ -31,7 +31,7 @@ public class Register {
           return  new ResponseEntity<>(newUser,HttpStatus.ACCEPTED);
 
         } catch (Exception e) {
-            return  new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_ACCEPTABLE);
+            return  new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
