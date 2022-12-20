@@ -1,0 +1,153 @@
+<section
+  class="vh-100 bg-image"
+  style="
+    background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');
+  "
+>
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-2">Create an account</h2>
+
+              <!-- Start of the registeration form -->
+
+              <form [formGroup]="registerForm" (ngSubmit)="tryRegister()">
+                <!-- FirstName -->
+                <div class="form-outline mb-2">
+                  <input
+                    name="firstName"
+                    type="text"
+                    id="inptFirstName"
+                    class="form-control form-control-lg"
+                    formControlName="firstName"
+                  />
+                  <label class="form-label" for="inptFirstName"
+                    >First name*</label
+                  >
+                </div>
+
+                <!-- Lastname -->
+                <div class="form-outline mb-2">
+                  <input
+                    name="lastName"
+                    type="text"
+                    id="inptLstName"
+                    class="form-control form-control-lg"
+                    formControlName="lastName"
+                  />
+                  <label class="form-label" for="inptLstName">Last name*</label>
+                </div>
+
+                <!-- E-Mail -->
+                <div class="form-outline mb-2">
+                  <input
+                    name="mail"
+                    type="email"
+                    id="inptMail"
+                    formControlName="mail"
+                    class="form-control form-control-lg"
+                  />
+                  <label class="form-label" for="inptMail">E-Mail*</label>
+                </div>
+
+                <!-- Username -->
+                <div class="form-outline mb-2">
+                  <input
+                    name="userName"
+                    [ngClass]="{
+                      loader: this.registerForm.get('userName')!.pending
+                    }"
+                    type="text"
+                    id="inptUserName"
+                    formControlName="userName"
+                    class="form-control form-control-lg"
+                  />
+
+                  <label class="form-label" for="inptUserName">Username*</label>
+                  <ng-container
+                    *ngIf="
+                      this.registerForm
+                        .get('userName')!
+                        .hasError('userNameExist')
+                    "
+                  >
+                    <span style="color: red; margin-left: 5px">
+                      The given username does already exist
+                    </span>
+                  </ng-container>
+                </div>
+
+                <!-- Pasword TextBox -->
+                <div class="form-outline mb-2">
+                  <input
+                    name="password"
+                    type="password"
+                    formControlName="password"
+                    id="inptPassword"
+                    class="form-control form-control-lg"
+                  />
+                  <label class="form-label" for="inptPassword">Password*</label>
+                </div>
+
+                <!-- Type dropDownList -->
+                <div class="form-outline mb-2">
+                  <select
+                    class="form-control"
+                    id="userType"
+                    name="userType"
+                    formControlName="userType"
+                  >
+                    <option value="STUDENT">STUDENT</option>
+                    <option value="TEACHER">TEACHER</option>
+                  </select>
+
+                  <label class="form-label" for="userType">User type*</label>
+                </div>
+
+                <!-- Agreement checkBox -->
+                <div class="form-check d-flex justify-content-center mb-3">
+                  <input
+                    formControlName="checkAgree"
+                    class="form-check-input me-2"
+                    type="checkbox"
+                    value=""
+                    id="chkAgree"
+                  />
+                  <label class="form-check-label" for="form2Example3g">
+                    I agree all statements in
+                    <a href="#!" class="text-body"><u>Terms of service</u></a>
+                  </label>
+                </div>
+
+                <!-- Registeration button -->
+                <div class="d-flex justify-content-center">
+                  <button
+                    [disabled]="registerForm.invalid"
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                  >
+                    Register
+                  </button>
+                </div>
+
+                <!-- Have already an account -->
+                <p class="text-center text-muted mt-2 mb-0">
+                  Have already an account?
+                  <a routerLink="../login" class="fw-bold text-body"><u>Login here</u></a>
+                </p>
+              </form>
+
+              <!-- The status of the from is : {{ this.registerForm.getRawValue() | json }}
+              The status of the from is : {{registerForm.status}}
+
+              The status of the username is  {{this.registerForm.get('userName')!.errors}} -->
+              <!-- End of the form  -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
